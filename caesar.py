@@ -1,41 +1,39 @@
-upper_case = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-lower_case = 'abcdefghijklmnopqrstuvwxyz'
+def alphabet_position(character):
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    lower = character.lower()
+    return alphabet.index(lower)
 
-def alphabet_position(letter):
+def rotate_string_13(text):
 
-    if letter.isupper():
-      new = upper_case.index(letter)
-    elif letter.isalpha():
-      new = lower_case.index(letter)
-    else:
-      new = -1
-    
-    return new
+    rotated = ''
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+
+    for char in text:
+        rotated_idx = (alphabet_position(char) + 13) % 26
+        if char.isupper():
+            rotated = rotated + alphabet[rotated_idx].upper()
+        else:
+            rotated = rotated + alphabet[rotated_idx]
+
+    return rotated
 
 def rotate_character(char, rot):
-    position = (alphabet_position(char) + rot) % 26
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    rotated_idx = (alphabet_position(char) + rot) % 26
 
-    if char.isalpha() == False:
-      new_char = char
-    elif char.isupper():
-      new_char = upper_case[position]
-    elif char.islower():
-      new_char = lower_case[position]
-    return new_char
-    
-def encrypt(text, rot):
-  enc_text = ""
-  for char in text:
-    enc_text += rotate_character(char, rot)
-  return enc_text
+    if char.isupper():
+        return alphabet[rotated_idx].upper()
+    else:
+        return alphabet[rotated_idx]
 
-def main():
-  user_mess = input("Type a message: ")
-  rotate = int(input("Rotate by: "))
-  #print(alphabet_position('t'))
-  print(encrypt(user_mess, rotate))
+def rotate_string(text, rot):
 
+    rotated = ''
 
-    
-if __name__ == "__main__":
-  main()
+    for char in text:
+        if (char.isalpha()):
+            rotated = rotated + rotate_character(char, rot)
+        else:
+            rotated = rotated + char
+
+    return rotated

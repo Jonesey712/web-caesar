@@ -34,10 +34,12 @@ form = """
     </body>
 </html>
 """
-@app.route("/" method=["POST"])
-def encrypt():
-    rot = int()
-    text = ""
+@app.route("/", methods=["POST"])
+def encrypt(text, rot):
+  enc_text = ""
+  for char in text:
+    enc_text += rotate_character(char, rot)
+  return "<h1>enc_text</h1>"
 
 @app.route("/")
 def index():
